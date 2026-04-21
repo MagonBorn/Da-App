@@ -150,3 +150,14 @@ textarea {
 .logout:hover {
   background: #c62828;
 }
+
+.remove {
+  margin-left: auto;
+  color: #bbb;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.remove:hover {
+  color: #e53935;
+}
