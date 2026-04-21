@@ -1,14 +1,4 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #232F3E; /* Squid Ink */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-/* CENTER WRAPPER */
+/* WRAPPER stays the same */
 .login-wrapper {
   width: 100%;
   max-width: 400px;
@@ -24,78 +14,22 @@ body {
   text-align: center;
 }
 
-/* TEXT */
-h2 {
-  margin-bottom: 5px;
-  color: #232F3E;
-}
-
-.subtitle {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 20px;
-}
-
-/* INPUTS */
+/* INPUTS FIX */
 input {
   width: 100%;
+  max-width: 300px;        /* ✅ stops stretching */
+  margin: 0 auto 12px;     /* ✅ centers horizontally */
+  display: block;
   padding: 10px;
-  margin-bottom: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 13px;
 }
 
-/* BUTTON BASE */
+/* BUTTONS ALIGN WITH INPUTS */
 .btn {
   width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border: none;
-  border-radius: 4px;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-/* PRIMARY (LOGIN) */
-.primary {
-  background: #05A0D1;
-  color: white;
-}
-
-/* SECONDARY (REGISTER) */
-.secondary {
-  background: #ddd;
-}
-
-/* LINK BUTTON */
-.link {
-  background: none;
-  border: none;
-  margin-top: 10px;
-  font-size: 12px;
-  color: #05A0D1;
-  cursor: pointer;
-}
-
-/* HOVER STATES */
-.primary:hover {
-  background: #048bb7;
-}
-
-.secondary:hover {
-  background: #ccc;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
-
-.logout {
-  background: #e53935; /* subtle red */
-  color: white;
-}
-
-.logout:hover {
-  background: #c62828;
+  max-width: 300px;
+  margin: 6px auto;
+  display: block;
 }
