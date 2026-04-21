@@ -2,53 +2,7 @@
 <html>
 <head>
   <title>Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    .layout {
-      display: flex;
-      height: 100vh;
-    }
-
-    .left {
-      width: 40%;
-      padding: 20px;
-      background: #f4f4f4;
-      overflow-y: auto;
-    }
-
-    .right {
-      width: 60%;
-      padding: 20px;
-    }
-
-    .section {
-      margin-bottom: 25px;
-    }
-
-    textarea {
-      width: 100%;
-      height: 300px;
-      padding: 10px;
-    }
-
-    input[type="text"] {
-      width: 70%;
-      padding: 5px;
-      margin-top: 10px;
-    }
-
-    button {
-      margin-top: 10px;
-      margin-right: 10px;
-      padding: 8px;
-      cursor: pointer;
-    }
-
-    label {
-      display: block;
-      margin: 5px 0;
-    }
-  </style>
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
 
@@ -61,101 +15,89 @@
     <!-- RESPONSE A -->
     <div class="section" id="responseA">
       <h3>Response A</h3>
-
       <div class="checkbox-group">
-        <label><input type="checkbox" data-group="A" value="Better range in pitch variation"> Better range in pitch variation</label>
-        <label><input type="checkbox" data-group="A" value="Better emphasis on words"> Better emphasis on words</label>
-        <label><input type="checkbox" data-group="A" value="Better voice consistency"> Better voice consistency</label>
+        <label><input type="checkbox" data-group="A" value="Better range in pitch variation">Better range in pitch variation</label>
+        <label><input type="checkbox" data-group="A" value="Better emphasis on words">Better emphasis on words</label>
+        <label><input type="checkbox" data-group="A" value="Better voice consistency">Better voice consistency</label>
       </div>
 
-      <input type="text" id="customA" placeholder="Add custom feedback">
-      <button onclick="addCustom('A')">Add</button>
+      <input id="customA" placeholder="Add custom...">
+      <button class="add-btn" onclick="addCustom('A')">Add</button>
     </div>
 
     <!-- RESPONSE B -->
     <div class="section" id="responseB">
       <h3>Response B</h3>
-
       <div class="checkbox-group">
-        <label><input type="checkbox" data-group="B" value="Better range in pitch variation"> Better range in pitch variation</label>
-        <label><input type="checkbox" data-group="B" value="Better emphasis on words"> Better emphasis on words</label>
-        <label><input type="checkbox" data-group="B" value="Better voice consistency"> Better voice consistency</label>
+        <label><input type="checkbox" data-group="B" value="Better range in pitch variation">Better range in pitch variation</label>
+        <label><input type="checkbox" data-group="B" value="Better emphasis on words">Better emphasis on words</label>
+        <label><input type="checkbox" data-group="B" value="Better voice consistency">Better voice consistency</label>
       </div>
 
-      <input type="text" id="customB" placeholder="Add custom feedback">
-      <button onclick="addCustom('B')">Add</button>
+      <input id="customB" placeholder="Add custom...">
+      <button class="add-btn" onclick="addCustom('B')">Add</button>
     </div>
-
   </div>
 
   <!-- RIGHT -->
   <div class="right">
     <h3>Selected Feedback</h3>
+
     <textarea id="output"></textarea>
 
-    <br>
-    <button onclick="copyText()">Copy</button>
-    <button onclick="clearAll()">Clear</button>
+    <div class="actions">
+      <button class="btn copy" onclick="copyText()">Copy</button>
+      <button class="btn clear" onclick="clearAll()">Clear</button>
+    </div>
   </div>
 
 </div>
 
+<script type="module" src="auth.js"></script>
+<script type="module" src="app.js"></script>
+
 <script>
   function updateOutput() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-    const grouped = {
-      A: [],
-      B: []
-    };
+    const grouped = { A: [], B: [] };
 
     checkboxes.forEach(cb => {
       if (cb.checked) {
-        const group = cb.dataset.group;
-        grouped[group].push(cb.value);
+        grouped[cb.dataset.group].push(cb.value);
       }
     });
 
     let result = "";
 
-    if (grouped.A.length > 0) {
+    if (grouped.A.length) {
       result += "Response A:\n";
-      grouped.A.forEach(item => {
-        result += "- " + item + "\n";
-      });
+      grouped.A.forEach(i => result += "- " + i + "\n");
       result += "\n";
     }
 
-    if (grouped.B.length > 0) {
+    if (grouped.B.length) {
       result += "Response B:\n";
-      grouped.B.forEach(item => {
-        result += "- " + item + "\n";
-      });
+      grouped.B.forEach(i => result += "- " + i + "\n");
     }
 
     document.getElementById("output").value = result.trim();
   }
 
-  // Attach listeners
-  document.addEventListener("change", function(e) {
-    if (e.target.type === "checkbox") {
-      updateOutput();
-    }
+  document.addEventListener("change", e => {
+    if (e.target.type === "checkbox") updateOutput();
   });
 
   function addCustom(group) {
     const input = document.getElementById("custom" + group);
     const value = input.value.trim();
-
     if (!value) return;
 
     const container = document.querySelector(`#response${group} .checkbox-group`);
 
     const label = document.createElement("label");
-    label.innerHTML = `<input type="checkbox" data-group="${group}" value="${value}"> ${value}`;
+    label.innerHTML = `<input type="checkbox" data-group="${group}" value="${value}">${value}`;
 
     container.appendChild(label);
-
     input.value = "";
   }
 
@@ -163,15 +105,11 @@
     const output = document.getElementById("output");
     output.select();
     document.execCommand("copy");
-    alert("Copied!");
   }
 
   function clearAll() {
     document.getElementById("output").value = "";
-
-    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-      cb.checked = false;
-    });
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
   }
 </script>
 
