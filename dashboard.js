@@ -9,6 +9,20 @@ import {
 
 const output = document.getElementById("output");
 
+// DEFAULTS
+const DEFAULTS = {
+  A: [
+    "Better range in pitch variation",
+    "Better emphasis on words",
+    "Better voice consistency"
+  ],
+  B: [
+    "Better range in pitch variation",
+    "Better emphasis on words",
+    "Better voice consistency"
+  ]
+};
+
 // UPDATE OUTPUT
 function updateOutput() {
   const grouped = { A: [], B: [] };
@@ -98,12 +112,23 @@ async function loadPreferences() {
   const ref = doc(db, "users", user.uid);
   const snap = await getDoc(ref);
 
-  if (!snap.exists()) return;
+  let data;
 
-  const data = snap.data();
+  if (!snap.exists()) {
+    // ✅ First-time user → use defaults
+    data = {
+      responseA: DEFAULTS.A,
+      responseB: DEFAULTS.B
+    };
 
-  renderCheckboxes("A", data.responseA || []);
-  renderCheckboxes("B", data.responseB || []);
+    // Save defaults for future use
+    await setDoc(ref, data);
+  } else {
+    data = snap.data();
+  }
+
+  renderCheckboxes("A", data.responseA || DEFAULTS.A);
+  renderCheckboxes("B", data.responseB || DEFAULTS.B);
 }
 
 // RENDER CHECKBOXES DYNAMICALLY
@@ -132,7 +157,7 @@ async function savePreferences() {
   const grouped = { A: [], B: [] };
 
   document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-    grouped[cb.dataset.group].push(cb.value);
+    grouped[cb.dataset.group].push(cb.value); // ✅ ALL items
   });
 
   await setDoc(doc(db, "users", user.uid), {

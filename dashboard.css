@@ -44,9 +44,21 @@ label {
   line-height: 1.2;
 }
 
-input[type="checkbox"] {
-  margin: 0;
-  transform: translateY(1px);
+/* STANDARD INPUT STYLE (matches login) */
+input[type="text"] {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* FOCUS STATE (Alexa style accent) */
+input[type="text"]:focus {
+  border-color: #05A0D1;
+  box-shadow: 0 0 0 2px rgba(5,160,209,0.2);
 }
 
 /* CUSTOM INPUT ROW */
@@ -67,7 +79,7 @@ input[type="checkbox"] {
 
 /* ADD BUTTON */
 .add-btn {
-  padding: 6px 10px;
+  padding: 8px 10px; /* match input height */
   background: #05A0D1;
   color: white;
   border: none;
