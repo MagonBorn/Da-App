@@ -1,8 +1,19 @@
-import { auth } from './firebase.js';
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.href = "index.html";
-  }
-});
+<div class="container">
+  <h2>Dashboard</h2>
+  <p>Welcome: <span id="user-email"></span></p>
+
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script type="module" src="auth.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
