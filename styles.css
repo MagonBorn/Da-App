@@ -1,35 +1,96 @@
-/* WRAPPER stays the same */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #232F3E; /* Squid Ink */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* WRAPPER */
 .login-wrapper {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   padding: 20px;
 }
 
 /* CARD */
 .login-card {
   background: white;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  padding: 28px 24px;
+  border-radius: 10px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.2);
   text-align: center;
 }
 
-/* INPUTS FIX */
+/* TEXT */
+h2 {
+  margin-bottom: 4px;
+  color: #232F3E;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* INPUTS (FIXED ALIGNMENT) */
 input {
   width: 100%;
-  max-width: 300px;        /* ✅ stops stretching */
-  margin: 0 auto 12px;     /* ✅ centers horizontally */
+  max-width: 300px;
+  margin: 0 auto 12px;
   display: block;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 13px;
+  box-sizing: border-box;
 }
 
-/* BUTTONS ALIGN WITH INPUTS */
+/* BUTTON BASE */
 .btn {
   width: 100%;
   max-width: 300px;
   margin: 6px auto;
   display: block;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* PRIMARY */
+.primary {
+  background: #05A0D1;
+  color: white;
+}
+
+.primary:hover {
+  background: #048bb7;
+}
+
+/* SECONDARY */
+.secondary {
+  background: #e0e0e0;
+}
+
+.secondary:hover {
+  background: #d5d5d5;
+}
+
+/* LINK */
+.link {
+  background: none;
+  border: none;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #05A0D1;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
 }
