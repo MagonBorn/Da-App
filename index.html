@@ -6,17 +6,23 @@
 </head>
 <body>
 
-<div class="container">
-  <h2>Login / Register</h2>
+<div class="login-wrapper">
+  <div class="login-card">
 
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
+    <h2>Binary Workflow</h2>
+    <p class="subtitle">Sign in to continue</p>
 
-  <button onclick="login()">Login</button>
-  <button onclick="register()">Register</button>
-  <button onclick="resetPassword()">Forgot Password</button>
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+
+    <button id="loginBtn" class="btn primary">Login</button>
+    <button id="registerBtn" class="btn secondary">Register</button>
+
+    <button id="resetBtn" class="link">Forgot password?</button>
+
+  </div>
 </div>
 
-<script type="module" src="auth.js"></script>
+<script type="module" src="./auth.js"></script>
 </body>
 </html>
