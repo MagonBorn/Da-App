@@ -48,3 +48,22 @@ window.logout = async () => {
   await signOut(auth);
   window.location.href = "index.html";
 };
+
+// RESET PASSWORD
+import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+window.resetPassword = async () => {
+  const email = document.getElementById("email").value;
+
+  if (!email) {
+    alert("Enter your email first");
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("Password reset email sent!");
+  } catch (error) {
+    alert(error.message);
+  }
+};
