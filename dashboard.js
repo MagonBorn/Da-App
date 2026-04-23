@@ -60,21 +60,25 @@ function updateOutput() {
 function addCustom(group) {
     const input = document.getElementById("custom" + group);
     const value = input.value.trim();
+
     if (!value) return;
 
     const container = document.querySelector(`#response${group} .checkbox-group`);
 
     const label = document.createElement("label");
     label.innerHTML = `
-    <input type="checkbox" data-group="${group}" value="${value}">
+    <input type="checkbox" data-group="${group}" value="${value}" checked>
     ${value}
     <span class="remove" data-group="${group}" data-value="${value}">✕</span>
   `;
 
     container.appendChild(label);
-    input.value = "";
 
-    savePreferences(); // ✅ persist
+    input.value = "";
+    input.focus(); // ✅ keeps typing flow smooth
+
+    savePreferences();
+    updateOutput(); // ✅ ensures it appears immediately
 }
 
 // REMOVE CUSTOM
@@ -180,5 +184,20 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/fi
 onAuthStateChanged(auth, (user) => {
     if (user) {
         loadPreferences();
+    }
+});
+
+// ADD TEXT USING ENTER
+document.addEventListener("keydown", (e) => {
+    // Only trigger inside text inputs
+    if (e.target.matches('input[type="text"]') && e.key === "Enter") {
+        e.preventDefault(); // stop form-like behaviour
+
+        const inputId = e.target.id;
+
+        // Extract group from input ID (customA, customB, customC)
+        const group = inputId.replace("custom", "");
+
+        addCustom(group);
     }
 });
