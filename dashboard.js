@@ -187,16 +187,30 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // ADD TEXT USING ENTER
+document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+
+    const input = e.target;
+
+    if (!input || input.tagName !== "INPUT") return;
+    if (!input.id.startsWith("custom")) return;
+
+    e.preventDefault();
+
+    const group = input.id.replace("custom", "");
+    addCustom(group);
+  });
+});
+
+// DEBUG TEST
 document.addEventListener("keydown", (e) => {
-    // Only trigger inside text inputs
-    if (e.target.matches('input[type="text"]') && e.key === "Enter") {
-        e.preventDefault(); // stop form-like behaviour
+  console.log("KEY:", e.key);
 
-        const inputId = e.target.id;
+  if (e.target.matches('input[type="text"]') && e.key === "Enter") {
+    e.preventDefault();
 
-        // Extract group from input ID (customA, customB, customC)
-        const group = inputId.replace("custom", "");
-
-        addCustom(group);
-    }
+    const group = e.target.id.replace("custom", "");
+    addCustom(group);
+  }
 });
