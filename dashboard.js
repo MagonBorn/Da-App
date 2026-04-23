@@ -78,7 +78,6 @@ function addCustom(group) {
     input.focus(); // ✅ keeps typing flow smooth
 
     savePreferences();
-    updateOutput(); // ✅ ensures it appears immediately
 }
 
 // REMOVE CUSTOM
