@@ -1,60 +1,83 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
 </head>
+
 <body>
 
-<div class="layout">
+    <div class="layout">
 
-  <div class="left">
-    <h2>Binary Workflow</h2>
+        <div class="left">
+            <h2>Binary Workflow</h2>
 
-    <div class="section" id="responseA">
-      <h3>Response A</h3>
-      <div class="checkbox-group">
-        <label><input type="checkbox" data-group="A" value="Better range in pitch variation">Better range in pitch variation</label>
-        <label><input type="checkbox" data-group="A" value="Better emphasis on words">Better emphasis on words</label>
-        <label><input type="checkbox" data-group="A" value="Better voice consistency">Better voice consistency</label>
-      </div>
+            <!-- RESPONSE A -->
+            <div class="section" id="responseA">
+                <h3>Response A</h3>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" data-group="A" value="Better range in pitch variation">Better range in
+                        pitch variation</label>
+                    <label><input type="checkbox" data-group="A" value="Better emphasis on words">Better emphasis on
+                        words</label>
+                    <label><input type="checkbox" data-group="A" value="Better voice consistency">Better voice
+                        consistency</label>
+                </div>
 
-      <div class="custom-row">
-  <input id="customA" placeholder="Add custom...">
-  <button class="add-btn" data-group="A">Add</button>
-</div>
+                <div class="custom-row">
+                    <input id="customA" placeholder="Add custom...">
+                    <button class="add-btn" data-group="A">Add</button>
+                </div>
+            </div>
+
+            <!-- RESPONSE B -->
+            <div class="section" id="responseB">
+                <h3>Response B</h3>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" data-group="B" value="Better range in pitch variation">Better range in
+                        pitch variation</label>
+                    <label><input type="checkbox" data-group="B" value="Better emphasis on words">Better emphasis on
+                        words</label>
+                    <label><input type="checkbox" data-group="B" value="Better voice consistency">Better voice
+                        consistency</label>
+                </div>
+
+                <!-- COMMENTS -->
+                <div class="section" id="responseC">
+                    <h3>Comments</h3>
+
+                    <div class="checkbox-group"></div>
+
+                    <div class="custom-row">
+                        <input id="customC" placeholder="Add comment...">
+                        <button class="add-btn" data-group="C">Add</button>
+                    </div>
+                </div>
+
+                <input id="customB" placeholder="Add custom...">
+                <button class="add-btn" data-group="B">Add</button>
+            </div>
+        </div>
+
+        <div class="right">
+            <h3>Selected Feedback</h3>
+
+            <textarea id="output"></textarea>
+
+            <div class="actions">
+                <button class="btn copy">Copy</button>
+                <button class="btn clear">Clear</button>
+                <button class="btn" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+
     </div>
 
-    <div class="section" id="responseB">
-      <h3>Response B</h3>
-      <div class="checkbox-group">
-        <label><input type="checkbox" data-group="B" value="Better range in pitch variation">Better range in pitch variation</label>
-        <label><input type="checkbox" data-group="B" value="Better emphasis on words">Better emphasis on words</label>
-        <label><input type="checkbox" data-group="B" value="Better voice consistency">Better voice consistency</label>
-      </div>
-
-      <input id="customB" placeholder="Add custom...">
-      <button class="add-btn" data-group="B">Add</button>
-    </div>
-  </div>
-
-  <div class="right">
-    <h3>Selected Feedback</h3>
-
-    <textarea id="output"></textarea>
-
-    <div class="actions">
-      <button class="btn copy">Copy</button>
-      <button class="btn clear">Clear</button>
-      <button class="btn" id="logoutBtn">Logout</button>
-    </div>
-  </div>
-
-</div>
-
-<script type="module" src="./auth.js"></script>
-<script type="module" src="./app.js"></script>
-<script type="module" src="./dashboard.js"></script>
+    <script type="module" src="./auth.js"></script>
+    <script type="module" src="./app.js"></script>
+    <script type="module" src="./dashboard.js"></script>
 
 </body>
+
 </html>
