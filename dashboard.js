@@ -67,7 +67,7 @@ function addCustom(group) {
 
     const label = document.createElement("label");
     label.innerHTML = `
-    <input type="checkbox" data-group="${group}" value="${value}" checked>
+    <input type="checkbox" data-group="${group}" value="${value}">
     ${value}
     <span class="remove" data-group="${group}" data-value="${value}">✕</span>
   `;
@@ -201,16 +201,4 @@ document.addEventListener("DOMContentLoaded", () => {
     const group = input.id.replace("custom", "");
     addCustom(group);
   });
-});
-
-// DEBUG TEST
-document.addEventListener("keydown", (e) => {
-  console.log("KEY:", e.key);
-
-  if (e.target.matches('input[type="text"]') && e.key === "Enter") {
-    e.preventDefault();
-
-    const group = e.target.id.replace("custom", "");
-    addCustom(group);
-  }
 });
