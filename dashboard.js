@@ -26,7 +26,7 @@ const DEFAULTS = {
 
 // UPDATE OUTPUT
 function updateOutput() {
-    const grouped = { A: [], B: [] };
+    const grouped = { A: [], B: [], C: [] };
 
     document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
         if (cb.checked) {
@@ -45,6 +45,7 @@ function updateOutput() {
     if (grouped.B.length) {
         result += "Response B:\n";
         grouped.B.forEach(i => result += "- " + i + "\n");
+        result += "\n";
     }
 
     if (grouped.C.length) {
@@ -52,7 +53,7 @@ function updateOutput() {
         grouped.C.forEach(i => result += "- " + i + "\n");
     }
 
-    output.value = result.trim();
+    document.getElementById("output").value = result.trim();
 }
 
 // ADD CUSTOM
