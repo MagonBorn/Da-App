@@ -202,3 +202,14 @@ document.addEventListener("DOMContentLoaded", () => {
     addCustom(group);
   });
 });
+
+// TOGGLE COMMENT GROUPS
+document.querySelectorAll(".section-header").forEach(header => {
+  header.addEventListener("click", () => {
+    const section = header.parentElement;
+    section.classList.toggle("collapsed");
+
+    const toggle = header.querySelector(".toggle");
+    toggle.textContent = section.classList.contains("collapsed") ? "+" : "−";
+  });
+});
