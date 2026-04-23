@@ -140,6 +140,11 @@ async function loadPreferences() {
     renderCheckboxes("A", data.responseA || DEFAULTS.A);
     renderCheckboxes("B", data.responseB || DEFAULTS.B);
     renderCheckboxes("C", data.responseC || DEFAULTS.C);
+
+    // ✅ LOAD NOTEPAD CONTENT HERE
+    if (data.notepad) {
+        document.getElementById("notepad").value = data.notepad;
+    }
 }
 
 // RENDER CHECKBOXES DYNAMICALLY
@@ -188,28 +193,42 @@ onAuthStateChanged(auth, (user) => {
 
 // ADD TEXT USING ENTER
 document.addEventListener("DOMContentLoaded", () => {
-  document.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter") return;
+    document.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter") return;
 
-    const input = e.target;
+        const input = e.target;
 
-    if (!input || input.tagName !== "INPUT") return;
-    if (!input.id.startsWith("custom")) return;
+        if (!input || input.tagName !== "INPUT") return;
+        if (!input.id.startsWith("custom")) return;
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const group = input.id.replace("custom", "");
-    addCustom(group);
-  });
+        const group = input.id.replace("custom", "");
+        addCustom(group);
+    });
 });
 
 // TOGGLE COMMENT GROUPS
 document.querySelectorAll(".section-header").forEach(header => {
-  header.addEventListener("click", () => {
-    const section = header.parentElement;
-    section.classList.toggle("collapsed");
+    header.addEventListener("click", () => {
+        const section = header.parentElement;
+        section.classList.toggle("collapsed");
 
-    const toggle = header.querySelector(".toggle");
-    toggle.textContent = section.classList.contains("collapsed") ? "+" : "−";
-  });
+        const toggle = header.querySelector(".toggle");
+        toggle.textContent = section.classList.contains("collapsed") ? "+" : "−";
+    });
+});
+
+// SAVE NOTEPAD
+document.addEventListener("DOMContentLoaded", () => {
+    const notepad = document.getElementById("notepad");
+
+    notepad.addEventListener("input", async () => {
+        const user = auth.currentUser;
+        if (!user) return;
+
+        await setDoc(doc(db, "users", user.uid), {
+            notepad: notepad.value
+        }, { merge: true });
+    });
 });

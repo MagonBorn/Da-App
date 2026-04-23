@@ -84,15 +84,33 @@
         </div>
 
         <div class="right">
-            <h3>Selected Feedback</h3>
 
-            <textarea id="output"></textarea>
+            <div class="right-columns">
 
-            <div class="actions">
-                <button class="btn copy">Copy</button>
-                <button class="btn clear">Clear</button>
-                <button class="btn" id="logoutBtn">Logout</button>
+                <!-- FEEDBACK PANEL -->
+                <div class="panel">
+                    <h3>Selected Feedback</h3>
+                    <textarea id="output"></textarea>
+
+                    <div class="actions">
+                        <button class="btn copy">Copy</button>
+                        <button class="btn clear">Clear</button>
+                    </div>
+                </div>
+
+                <!-- NOTEPAD PANEL -->
+                <div class="panel">
+                    <h3>Notepad</h3>
+                    <textarea id="notepad" placeholder="Write notes here..."></textarea>
+                </div>
+
             </div>
+
+            <!-- LOGOUT stays at bottom -->
+            <div class="actions">
+                <button class="btn logout" id="logoutBtn">Logout</button>
+            </div>
+
         </div>
 
     </div>
