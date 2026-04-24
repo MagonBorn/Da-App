@@ -214,16 +214,12 @@ document.querySelectorAll(".section-header").forEach(header => {
     });
 });
 
+// DISABLE PASTING IN TEXT AREAS
 function disablePaste(el) {
     el.addEventListener("paste", (e) => {
         e.preventDefault();
     });
 }
-
-const notepad = document.getElementById("notepad");
-
-disablePaste(output);
-disablePaste(notepad);
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
     document.getElementById("notepad").value = "";
@@ -234,3 +230,21 @@ document.addEventListener("paste", (e) => {
         e.preventDefault();
     }
 });
+
+// BLOCK PASTE IN LEFT PANEL INPUTS
+document.addEventListener("paste", (e) => {
+    const target = e.target;
+
+    // Only block if it's inside the LEFT panel and is a text input
+    if (
+        target.closest(".left") &&
+        (target.tagName === "INPUT" || target.tagName === "TEXTAREA")
+    ) {
+        e.preventDefault();
+    }
+});
+
+const notepad = document.getElementById("notepad");
+
+disablePaste(output);
+disablePaste(notepad);

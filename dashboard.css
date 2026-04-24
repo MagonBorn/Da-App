@@ -256,3 +256,7 @@ input[type="text"]:focus {
 .remove:hover {
     color: #e53935;
 }
+
+.panel-footer {
+    justify-content: flex-start;
+}
