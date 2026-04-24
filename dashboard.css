@@ -158,16 +158,21 @@ input[type="text"]:focus {
     /* ✅ forces equal height */
 }
 
-/* EACH PANEL */
+/* PANEL STRUCTURE */
 .panel {
     flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    /* ✅ ensures full height */
 }
 
-/* TEXTAREAS MATCH EXACTLY */
+/* FORCE MATCHED HEIGHT BEHAVIOUR */
+.panel-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* TEXTAREAS IDENTICAL */
 .panel textarea {
     flex: 1;
     width: 100%;
@@ -214,9 +219,9 @@ textarea {
     box-sizing: border-box;
 }
 
-/* ACTIONS */
+/* ACTIONS STAY BELOW TEXTAREA */
 .actions {
-    margin-top: 12px;
+    margin-top: 10px;
     display: flex;
     gap: 8px;
 }

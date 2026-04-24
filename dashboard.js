@@ -140,11 +140,6 @@ async function loadPreferences() {
     renderCheckboxes("A", data.responseA || DEFAULTS.A);
     renderCheckboxes("B", data.responseB || DEFAULTS.B);
     renderCheckboxes("C", data.responseC || DEFAULTS.C);
-
-    // ✅ LOAD NOTEPAD CONTENT HERE
-    if (data.notepad) {
-        document.getElementById("notepad").value = data.notepad;
-    }
 }
 
 // RENDER CHECKBOXES DYNAMICALLY
@@ -219,16 +214,23 @@ document.querySelectorAll(".section-header").forEach(header => {
     });
 });
 
-// SAVE NOTEPAD
-document.addEventListener("DOMContentLoaded", () => {
-    const notepad = document.getElementById("notepad");
-
-    notepad.addEventListener("input", async () => {
-        const user = auth.currentUser;
-        if (!user) return;
-
-        await setDoc(doc(db, "users", user.uid), {
-            notepad: notepad.value
-        }, { merge: true });
+function disablePaste(el) {
+    el.addEventListener("paste", (e) => {
+        e.preventDefault();
     });
+}
+
+const notepad = document.getElementById("notepad");
+
+disablePaste(output);
+disablePaste(notepad);
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    document.getElementById("notepad").value = "";
+});
+
+document.addEventListener("paste", (e) => {
+    if (e.target.tagName === "TEXTAREA") {
+        e.preventDefault();
+    }
 });

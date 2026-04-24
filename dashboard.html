@@ -10,6 +10,7 @@
 
     <div class="layout">
 
+        <!-- LEFT PANEL -->
         <div class="left">
             <h2>Binary Workflow</h2>
 
@@ -83,6 +84,7 @@
             </div>
         </div>
 
+        <!-- RIGHT PANEL -->
         <div class="right">
 
             <div class="right-columns">
@@ -90,18 +92,24 @@
                 <!-- FEEDBACK PANEL -->
                 <div class="panel">
                     <h3>Selected Feedback</h3>
-                    <textarea id="output"></textarea>
 
-                    <div class="actions">
-                        <button class="btn copy">Copy</button>
-                        <button class="btn clear">Clear</button>
+                    <div class="panel-body">
+                        <textarea id="output"></textarea>
+
+                        <div class="actions">
+                            <button class="btn copy">Copy</button>
+                            <button class="btn clear">Clear</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- NOTEPAD PANEL -->
                 <div class="panel">
                     <h3>Notepad</h3>
-                    <textarea id="notepad" placeholder="Write notes here..."></textarea>
+
+                    <div class="panel-body">
+                        <textarea id="notepad" placeholder="Write notes here..."></textarea>
+                    </div>
                 </div>
 
             </div>
