@@ -137,8 +137,10 @@ input[type="text"]:focus {
     background: #048bb7;
 }
 
-/* RIGHT PANEL LAYOUT */
-/* RIGHT PANEL */
+/* =========================
+   RIGHT PANEL (FIXED LAYOUT)
+   ========================= */
+
 .right {
     flex: 1;
     padding: 20px;
@@ -146,30 +148,68 @@ input[type="text"]:focus {
     flex-direction: column;
     height: 100vh;
     box-sizing: border-box;
+    overflow: hidden;
+    /* ✅ prevents stretch issues */
 }
 
-/* TWO COLUMN SPLIT */
 /* TWO COLUMN LAYOUT */
 .right-columns {
     display: flex;
     gap: 16px;
     flex: 1;
-    align-items: stretch;
-    /* ✅ forces equal height */
+    min-height: 0;
+    /* ✅ CRITICAL: allows children to size properly */
 }
 
-/* PANEL STRUCTURE */
+/* EACH PANEL */
 .panel {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-height: 0;
+    /* ✅ prevents overflow pushing height */
 }
 
-/* FORCE MATCHED HEIGHT BEHAVIOUR */
+/* PANEL CONTENT WRAPPER */
 .panel-body {
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-height: 0;
+    /* ✅ REQUIRED for textarea sizing */
+}
+
+/* TEXTAREAS (IDENTICAL + FIXED) */
+.panel textarea {
+    flex: 1;
+    min-height: 0;
+    /* ✅ KEY FIX */
+    width: 100%;
+    padding: 12px;
+    font-size: 13px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    resize: none;
+    box-sizing: border-box;
+}
+
+/* HEADINGS */
+.panel h3 {
+    margin: 0 0 8px 0;
+}
+
+/* ACTIONS INSIDE PANEL */
+.panel .actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+/* LOGOUT ROW */
+.right>.actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 /* TEXTAREAS IDENTICAL */
@@ -205,18 +245,6 @@ input[type="text"]:focus {
 
 .right h3 {
     margin-bottom: 10px;
-}
-
-/* TEXTAREA TAKES AVAILABLE SPACE */
-textarea {
-    flex: 1;
-    width: 100%;
-    padding: 12px;
-    font-size: 13px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    resize: none;
-    box-sizing: border-box;
 }
 
 /* ACTIONS STAY BELOW TEXTAREA */
