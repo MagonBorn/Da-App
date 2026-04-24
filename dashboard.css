@@ -138,7 +138,7 @@ input[type="text"]:focus {
 }
 
 /* =========================
-   RIGHT PANEL (FIXED LAYOUT)
+   RIGHT PANEL (FINAL FIX)
    ========================= */
 
 .right {
@@ -148,17 +148,15 @@ input[type="text"]:focus {
     flex-direction: column;
     height: 100vh;
     box-sizing: border-box;
-    overflow: hidden;
-    /* ✅ prevents stretch issues */
 }
 
-/* TWO COLUMN LAYOUT */
+/* MAIN CONTENT AREA */
 .right-columns {
     display: flex;
     gap: 16px;
     flex: 1;
-    min-height: 0;
-    /* ✅ CRITICAL: allows children to size properly */
+    height: 0;
+    /* ✅ CRITICAL FIX */
 }
 
 /* EACH PANEL */
@@ -166,24 +164,18 @@ input[type="text"]:focus {
     flex: 1;
     display: flex;
     flex-direction: column;
-    min-height: 0;
-    /* ✅ prevents overflow pushing height */
 }
 
-/* PANEL CONTENT WRAPPER */
+/* PANEL BODY */
 .panel-body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-height: 0;
-    /* ✅ REQUIRED for textarea sizing */
 }
 
-/* TEXTAREAS (IDENTICAL + FIXED) */
+/* TEXTAREAS */
 .panel textarea {
     flex: 1;
-    min-height: 0;
-    /* ✅ KEY FIX */
     width: 100%;
     padding: 12px;
     font-size: 13px;
@@ -198,7 +190,7 @@ input[type="text"]:focus {
     margin: 0 0 8px 0;
 }
 
-/* ACTIONS INSIDE PANEL */
+/* ACTION BUTTONS (LEFT PANEL ONLY) */
 .panel .actions {
     margin-top: 10px;
     display: flex;
