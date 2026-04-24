@@ -244,6 +244,18 @@ document.addEventListener("paste", (e) => {
     }
 });
 
+// PREVENT TEXT DRAG AND DROP
+document.addEventListener("drop", (e) => {
+  const target = e.target;
+
+  if (
+    target.closest(".left") &&
+    (target.tagName === "INPUT" || target.tagName === "TEXTAREA")
+  ) {
+    e.preventDefault();
+  }
+});
+
 const notepad = document.getElementById("notepad");
 
 disablePaste(output);
