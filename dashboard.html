@@ -89,7 +89,7 @@
 
             <div class="right-columns">
 
-                <!-- FEEDBACK PANEL -->
+                <!-- LEFT PANEL -->
                 <div class="panel">
                     <h3>Selected Feedback</h3>
 
@@ -97,35 +97,36 @@
                         <textarea id="output"></textarea>
                     </div>
 
-                    <div class="actions">
+                    <div class="panel-footer">
                         <button class="btn copy">Copy</button>
                         <button class="btn clear">Clear</button>
                     </div>
                 </div>
 
-                <!-- NOTEPAD PANEL -->
+                <!-- RIGHT PANEL -->
                 <div class="panel">
                     <h3>Notepad</h3>
 
                     <div class="panel-body">
                         <textarea id="notepad" placeholder="Write notes here..."></textarea>
                     </div>
+
+                    <!-- empty footer to match height -->
+                    <div class="panel-footer"></div>
                 </div>
 
             </div>
 
-            <!-- LOGOUT stays at bottom -->
+            <!-- LOGOUT -->
             <div class="actions">
                 <button class="btn logout" id="logoutBtn">Logout</button>
             </div>
 
         </div>
 
-    </div>
-
-    <script type="module" src="./auth.js"></script>
-    <script type="module" src="./app.js"></script>
-    <script type="module" src="./dashboard.js"></script>
+        <script type="module" src="./auth.js"></script>
+        <script type="module" src="./app.js"></script>
+        <script type="module" src="./dashboard.js"></script>
 
 </body>
 
