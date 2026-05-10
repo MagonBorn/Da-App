@@ -6,6 +6,8 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+console.log("app.js is loaded");
+
 const userEmailEl = document.getElementById("user-email");
 
 // Protect page
