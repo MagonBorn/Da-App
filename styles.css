@@ -122,19 +122,19 @@ body {
 }
 
 /* TEXT */
-h2 {
+.login-page h2 {
   margin-bottom: 4px;
   color: #232F3E;
 }
 
-.subtitle {
+.login-page .subtitle {
   font-size: 13px;
   color: #666;
   margin-bottom: 20px;
 }
 
 /* INPUTS (FIXED ALIGNMENT) */
-input {
+.login-page input {
   width: 100%;
   max-width: 300px;
   margin: 0 auto 12px;
@@ -147,7 +147,7 @@ input {
 }
 
 /* BUTTON BASE */
-.btn {
+.login-page .btn {
   width: 100%;
   max-width: 300px;
   margin: 6px auto;
@@ -179,7 +179,7 @@ input {
 }
 
 /* LINK */
-.link {
+.login-page .link {
   background: none;
   border: none;
   margin-top: 10px;

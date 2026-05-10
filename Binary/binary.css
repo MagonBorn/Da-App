@@ -10,11 +10,13 @@ body {
 /* MAIN LAYOUT */
 .layout {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 64px);
 }
 
 /* LEFT PANEL (SCROLLABLE) */
 .left {
+    display: block;
+    text-align: left;
     width: 320px;
     background: #232F3E;
     color: white;
@@ -32,6 +34,7 @@ body {
 
 .section {
     margin-bottom: 22px;
+    text-align: left;
 }
 
 .section h3 {
@@ -85,6 +88,17 @@ input[type="checkbox"] {
     transform: translateY(1px);
 }
 
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.checkbox-group label {
+    width: 100%;
+    justify-content: flex-start;
+}
+
 /* STANDARD INPUT (GLOBAL) */
 input[type="text"] {
     width: 100%;
@@ -106,6 +120,8 @@ input[type="text"]:focus {
 
 .custom-row {
     display: flex;
+    width: 100%;
+    justify-content: flex-start;
     gap: 6px;
     margin-top: 8px;
     align-items: center;
@@ -113,6 +129,8 @@ input[type="text"]:focus {
 
 /* INPUT */
 .custom-row input {
+    margin: 0;
+    max-width: none;
     flex: 1;
     padding: 6px;
     font-size: 12px;
@@ -146,7 +164,7 @@ input[type="text"]:focus {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     box-sizing: border-box;
 }
 
@@ -201,9 +219,10 @@ input[type="text"]:focus {
 
 /* LOGOUT */
 .right>.actions {
-    margin-top: 10px;
+    margin-top: 12px;
     display: flex;
     justify-content: flex-end;
+    flex-shrink: 0;
 }
 
 
