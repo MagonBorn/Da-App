@@ -1,37 +1,23 @@
 // app.js
 import { auth, db } from './firebase.js';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import {
   doc,
-  setDoc
+  getDoc
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// REGISTER
-window.register = async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+const userEmailEl = document.getElementById("user-email");
 
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+// Protect page
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "./dashboard.html";
+  } else {
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
 
-  // Save user data
-  await setDoc(doc(db, "users", userCredential.user.uid), {
-    email: email,
-    createdAt: new Date()
-  });
-
-  alert("User registered!");
-};
-
-// LOGIN
-window.login = async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  await signInWithEmailAndPassword(auth, email, password);
-
-  window.location.href = "dashboard.html";
-};
+    if (docSnap.exists()) {
+      userEmailEl.innerText = docSnap.data().email;
+    }
+  }
+});
