@@ -1,11 +1,19 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #232F3E; /* Squid Ink */
+  background: #f4f6f8;
+}
+
+.login-page {
+  background: #232F3E;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
+
+.page-content {
+    padding: 32px;
 }
 
 /* =========================

@@ -24,17 +24,18 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-navToggle.addEventListener("click", () => {
-    dropdownMenu.classList.toggle("show");
-});
 
-/* CLOSE IF CLICK OUTSIDE */
+if (navToggle && dropdownMenu) {
+    navToggle.addEventListener("click", () => {
+        dropdownMenu.classList.toggle("show");
+    });
 
-document.addEventListener("click", (e) => {
-    if (
-        !navToggle.contains(e.target) &&
-        !dropdownMenu.contains(e.target)
-    ) {
-        dropdownMenu.classList.remove("show");
-    }
-});
+    document.addEventListener("click", (e) => {
+        if (
+            !navToggle.contains(e.target) &&
+            !dropdownMenu.contains(e.target)
+        ) {
+            dropdownMenu.classList.remove("show");
+        }
+    });
+}
