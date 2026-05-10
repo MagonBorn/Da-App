@@ -7,6 +7,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const userEmailEl = document.getElementById("user-email");
+const navToggle = document.getElementById("navToggle");
+const dropdownMenu = document.getElementById("dropdownMenu");
 
 // Protect page
 onAuthStateChanged(auth, async (user) => {
@@ -20,4 +22,19 @@ onAuthStateChanged(auth, async (user) => {
       userEmailEl.innerText = docSnap.data().email;
     }
   }
+});
+
+navToggle.addEventListener("click", () => {
+    dropdownMenu.classList.toggle("show");
+});
+
+/* CLOSE IF CLICK OUTSIDE */
+
+document.addEventListener("click", (e) => {
+    if (
+        !navToggle.contains(e.target) &&
+        !dropdownMenu.contains(e.target)
+    ) {
+        dropdownMenu.classList.remove("show");
+    }
 });
