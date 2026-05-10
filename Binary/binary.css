@@ -207,21 +207,13 @@ input[type="text"]:focus {
     box-sizing: border-box;
 }
 
-/* FOOTER (ALIGNS BOTH PANELS) */
-.panel-footer {
-    height: 42px;
-    /* ✅ SAME HEIGHT BOTH SIDES */
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-top: 10px;
-}
+/* SHARED BUTTON BAR */
 
-/* LOGOUT */
-.right>.actions {
-    margin-top: 12px;
+.button-bar {
     display: flex;
     justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
     flex-shrink: 0;
 }
 
