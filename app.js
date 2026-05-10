@@ -7,8 +7,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const userEmailEl = document.getElementById("user-email");
-const navToggle = document.getElementById("navToggle");
-const dropdownMenu = document.getElementById("dropdownMenu");
 
 // Protect page
 onAuthStateChanged(auth, async (user) => {
@@ -25,17 +23,23 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 
-if (navToggle && dropdownMenu) {
-    navToggle.addEventListener("click", () => {
-        dropdownMenu.classList.toggle("show");
-    });
+document.addEventListener("DOMContentLoaded", () => {
+    const navToggle = document.getElementById("navToggle");
+    const dropdownMenu = document.getElementById("dropdownMenu");
 
-    document.addEventListener("click", (e) => {
-        if (
-            !navToggle.contains(e.target) &&
-            !dropdownMenu.contains(e.target)
-        ) {
-            dropdownMenu.classList.remove("show");
-        }
-    });
-}
+    if (navToggle && dropdownMenu) {
+        navToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle("show");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (
+                !navToggle.contains(e.target) &&
+                !dropdownMenu.contains(e.target)
+            ) {
+                dropdownMenu.classList.remove("show");
+            }
+        });
+    }
+});
