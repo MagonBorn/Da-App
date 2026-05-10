@@ -38,7 +38,7 @@ document.getElementById("loginBtn")?.addEventListener("click", async () => {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    window.location.href = "dashboard.html";
+    window.location.href = "./dashboard.html";
   } catch (err) {
     alert(err.message);
   }
@@ -61,6 +61,6 @@ document.getElementById("resetBtn")?.addEventListener("click", async () => {
 // LOGOUT (used in dashboard)
 export function logout() {
   signOut(auth).then(() => {
-    window.location.href = "index.html";
+    window.location.href = "./dashboard.html";
   });
 }
