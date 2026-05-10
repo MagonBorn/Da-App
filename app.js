@@ -11,7 +11,7 @@ const userEmailEl = document.getElementById("user-email");
 // Protect page
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    window.location.href = "./Dashboard/dashboard.html";
+    window.location.href = "index.html";
   } else {
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
