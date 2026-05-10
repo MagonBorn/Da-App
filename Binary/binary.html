@@ -7,6 +7,25 @@
 </head>
 
 <body>
+    <header class="app-header">
+        <div class="app-logo">
+            Dashboard
+        </div>
+
+        <nav class="nav-menu">
+
+            <button class="nav-toggle" id="navToggle">
+                Menu ▾
+            </button>
+
+            <div class="dropdown" id="dropdownMenu">
+                <a href="../Binary/binary.html">Binary</a>
+                <a href="text-to-image.html">Text-To-Image</a>
+                <a href="face-crop.html">Face-Crop</a>
+            </div>
+
+        </nav>
+    </header>
 
     <div class="layout">
 
@@ -124,9 +143,10 @@
 
         </div>
 
-        <script type="module" src="./auth.js"></script>
-        <script type="module" src="./app.js"></script>
-        <script type="module" src="./binary.js"></script>
+        <!-- <script type="module" src="../auth.js"></script> -->
+        <script type="module" src="../app.js"></script>
+        <script type="module" src="../binary.js"></script>
+        <script type="module" src="../menu.js"></script>
 
 </body>
 
