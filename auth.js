@@ -61,6 +61,6 @@ document.getElementById("resetBtn")?.addEventListener("click", async () => {
 // LOGOUT (used in dashboard)
 export function logout() {
   signOut(auth).then(() => {
-    window.location.href = "./index.html";
+    window.location.href = "../index.html";
   });
 }
