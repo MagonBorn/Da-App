@@ -60,7 +60,9 @@ document.getElementById("resetBtn")?.addEventListener("click", async () => {
 
 // LOGOUT (used in dashboard)
 export function logout() {
-  signOut(auth).then(() => {
+  auth.signOut().then(() => {
     window.location.href = "../index.html";
+  }).catch((error) => {
+    console.error("Logout failed:", error);
   });
 }
