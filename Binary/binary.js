@@ -1,6 +1,6 @@
-import { logout } from './auth.js';
-import { db } from './firebase.js';
-import { auth } from './firebase.js';
+import { logout } from '../auth.js';
+import { db } from '../firebase.js';
+import { auth } from '../firebase.js';
 import {
     doc,
     getDoc,
