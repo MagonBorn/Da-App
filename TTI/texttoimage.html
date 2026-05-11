@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Text To Image</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./tti.css">
+</head>
+
+<body>
+
+<header class="app-header">
+    <div class="app-logo">Text To Image</div>
+
+    <nav class="nav-menu">
+        <button class="nav-toggle" id="navToggle">Menu ▾</button>
+
+        <div class="dropdown" id="dropdownMenu">
+            <a href="../Dashboard/dashboard.html">Dashboard</a>
+            <a href="../Binary/binary.html">Binary</a>
+            <a href="../FaceCrop/facecrop.html">Face-Crop</a>
+        </div>
+    </nav>
+</header>
+
+<div class="layout">
+
+    <!-- LEFT -->
+    <div class="left">
+        <h2>Text To Image Workflow</h2>
+
+        <div class="section" id="ttiComments">
+            <div class="section-header">
+                <h3>Feedback</h3>
+            </div>
+
+            <div class="section-body">
+                <div class="checkbox-group">
+                    <label><input type="checkbox" value="Prompt quality could improve">Prompt quality could improve</label>
+                    <label><input type="checkbox" value="Image lacks detail">Image lacks detail</label>
+                    <label><input type="checkbox" value="Composition needs refinement">Composition needs refinement</label>
+                </div>
+            </div>
+
+            <div class="custom-row">
+                <input id="customTTI" placeholder="Add custom comment...">
+                <button class="add-btn">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+
+        <div class="right-columns">
+
+            <div class="panel">
+                <h3>Selected Feedback</h3>
+                <div class="panel-body">
+                    <textarea id="output"></textarea>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Notepad</h3>
+                <div class="panel-body">
+                    <textarea id="notepad"></textarea>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="button-bar">
+            <button class="btn copy">Copy</button>
+            <button class="btn clear">Clear</button>
+            <button class="btn logout" id="logoutBtn">Logout</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="module" src="../menu.js"></script>
+<script type="module" src="./tti.js"></script>
+
+</body>
+</html>

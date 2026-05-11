@@ -9,6 +9,7 @@ import {
 
 const output = document.getElementById("output");
 
+
 // DEFAULTS
 const DEFAULTS = {
     A: [
