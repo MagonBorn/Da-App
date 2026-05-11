@@ -208,19 +208,14 @@ auth.onAuthStateChanged(async user => {
     await loadPreferences();
 
 });
+
 // Debugging - Delete after testing:
-document.querySelector(".add-btn")
-.addEventListener("click", () => {
-    console.log("ADD CLICKED");
-});
-
-document.addEventListener("change", e => {
-    console.log("change fired", e.target);
-});
-
-await setDoc(
-    doc(db, "test", "ping"),
-    { works: true }
-);
-
-console.log("firestore write success");
+function workflowRef(user) {
+    return doc(
+        db,
+        "users",
+        user.uid,
+        "workflows",
+        COLLECTION
+    );
+}
