@@ -1,7 +1,3 @@
-console.log("TTI JS LOADED");
-console.log(auth);
-console.log(db);
-
 import { logout } from "../auth.js";
 import { auth, db } from "../firebase.js";
 
