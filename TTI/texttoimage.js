@@ -224,6 +224,66 @@ document.querySelectorAll(".section-header")
 
 logoutBtn.addEventListener("click", logout);
 
+/* ==========================
+   PRIVACY LOCKDOWN
+========================== */
+
+function lockInputSecurity() {
+
+    // Block paste everywhere
+    document.addEventListener("paste", e => {
+        e.preventDefault();
+    });
+
+    // Block drag/drop globally
+    document.addEventListener("dragover", e => {
+        e.preventDefault();
+    });
+
+    document.addEventListener("drop", e => {
+        e.preventDefault();
+    });
+
+    // Block context menu (optional)
+    document.addEventListener("contextmenu", e => {
+        e.preventDefault();
+    });
+
+    // Explicit textarea protection
+    document.querySelectorAll("textarea").forEach(area => {
+
+        area.addEventListener("paste", e => {
+            e.preventDefault();
+        });
+
+        area.addEventListener("drop", e => {
+            e.preventDefault();
+        });
+
+        area.addEventListener("dragover", e => {
+            e.preventDefault();
+        });
+
+    });
+
+    // Block left custom input paste/drop
+    if (customInput) {
+
+        customInput.addEventListener("paste", e => {
+            e.preventDefault();
+        });
+
+        customInput.addEventListener("drop", e => {
+            e.preventDefault();
+        });
+
+        customInput.addEventListener("dragover", e => {
+            e.preventDefault();
+        });
+
+    }
+
+}
 
 /* ==========================
    INIT
@@ -235,6 +295,8 @@ auth.onAuthStateChanged(async user => {
         window.location.href = "../index.html";
         return;
     }
+
+    lockInputSecurity();
 
     await loadPreferences();
 
