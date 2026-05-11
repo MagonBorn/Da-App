@@ -199,18 +199,20 @@ document.querySelector(".copy")
 document.querySelectorAll(".section-header")
     .forEach(header => {
 
-        const toggle = header.querySelector(".toggle");
-
         header.addEventListener("click", () => {
 
-            const section = header.parentElement;
+            const section = header.closest(".section");
+            const toggle = header.querySelector(".toggle");
 
             section.classList.toggle("collapsed");
 
-            toggle.textContent =
-                section.classList.contains("collapsed")
-                    ? "+"
-                    : "−";
+            if (toggle) {
+                toggle.textContent =
+                    section.classList.contains("collapsed")
+                        ? "+"
+                        : "−";
+            }
+
         });
 
     });
