@@ -2,7 +2,8 @@ console.log("TTI JS LOADED");
 console.log(auth);
 console.log(db);
 
-import { auth, db, logout } from "../auth.js";
+import { db, logout } from "../auth.js";
+import { auth } from "../firebase.js";
 
 import {
     doc,
