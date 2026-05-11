@@ -1,8 +1,4 @@
-import {
-    auth,
-    db,
-    logout
-} from "../auth.js";
+import { auth, db, logout } from "../auth.js";
 
 import {
     doc,
@@ -10,15 +6,17 @@ import {
     setDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const output = document.getElementById("output");
-const notepad = document.getElementById("notepad");
-const customInput = document.getElementById("customTTI");
-
 const COLLECTION = "textToImage";
 
-/* --------------------------
-   SAVE
--------------------------- */
+const output = document.getElementById("output");
+const customInput = document.getElementById("customTTI");
+const checkboxGroup = document.querySelector(".checkbox-group");
+const logoutBtn = document.getElementById("logoutBtn");
+
+
+/* ==========================
+   SAVE TO FIRESTORE
+========================== */
 
 async function savePreferences() {
     const user = auth.currentUser;
@@ -26,15 +24,14 @@ async function savePreferences() {
 
     const comments = [];
 
-    document.querySelectorAll(".checkbox-group label")
-        .forEach(label => {
-            const cb = label.querySelector("input");
+    checkboxGroup.querySelectorAll("label").forEach(label => {
+        const cb = label.querySelector("input");
 
-            comments.push({
-                text: cb.value,
-                checked: cb.checked
-            });
+        comments.push({
+            text: cb.value,
+            checked: cb.checked
         });
+    });
 
     await setDoc(
         doc(db, "users", user.uid, "workflows", COLLECTION),
@@ -42,9 +39,10 @@ async function savePreferences() {
     );
 }
 
-/* --------------------------
-   LOAD
--------------------------- */
+
+/* ==========================
+   LOAD FROM FIRESTORE
+========================== */
 
 async function loadPreferences() {
     const user = auth.currentUser;
@@ -56,41 +54,34 @@ async function loadPreferences() {
 
     if (!snap.exists()) return;
 
-    const data = snap.data();
+    checkboxGroup.innerHTML = "";
 
-    document.querySelector(".checkbox-group").innerHTML = "";
-
-    data.comments.forEach(item => {
+    snap.data().comments.forEach(item => {
         addCheckbox(item.text, item.checked);
     });
 
     updateOutput();
 }
 
-/* --------------------------
-   CHECKBOX
--------------------------- */
+
+/* ==========================
+   UPDATE OUTPUT TEXTAREA
+========================== */
 
 function updateOutput() {
     const selected = [];
 
-    document.querySelectorAll(
-        '.checkbox-group input:checked'
-    ).forEach(cb => selected.push(cb.value));
+    checkboxGroup
+        .querySelectorAll("input:checked")
+        .forEach(cb => selected.push(cb.value));
 
     output.value = selected.join("\n");
 }
 
-document.addEventListener("change", async (e) => {
-    if (e.target.matches('.checkbox-group input[type="checkbox"]')) {
-        updateOutput();
-        await savePreferences();
-    }
-});
 
-/* --------------------------
-   ADD CUSTOM
--------------------------- */
+/* ==========================
+   ADD CHECKBOX
+========================== */
 
 function addCheckbox(text, checked = false) {
     const label = document.createElement("label");
@@ -100,36 +91,84 @@ function addCheckbox(text, checked = false) {
                value="${text}"
                ${checked ? "checked" : ""}>
         ${text}
+        <span class="remove">✕</span>
     `;
 
-    document.querySelector(".checkbox-group")
-        .appendChild(label);
+    checkboxGroup.appendChild(label);
+}
+
+
+/* ==========================
+   ADD CUSTOM COMMENT
+========================== */
+
+async function handleAdd() {
+    const value = customInput.value.trim();
+
+    if (!value) return;
+
+    addCheckbox(value, false);
+
+    customInput.value = "";
+
+    await savePreferences();
 }
 
 document.querySelector(".add-btn")
-    .addEventListener("click", async () => {
-        const value = customInput.value.trim();
+    .addEventListener("click", handleAdd);
 
-        if (!value) return;
-
-        addCheckbox(value, false);
-
-        customInput.value = "";
-
-        await savePreferences();
-        updateOutput();
-    });
-
-customInput.addEventListener("keydown", async (e) => {
+customInput.addEventListener("keydown", e => {
     if (e.key === "Enter") {
         e.preventDefault();
-        document.querySelector(".add-btn").click();
+        handleAdd();
     }
 });
 
-/* --------------------------
+
+/* ==========================
+   CHECK / REMOVE EVENTS
+========================== */
+
+document.addEventListener("click", async e => {
+
+    /* REMOVE COMMENT */
+    if (e.target.classList.contains("remove")) {
+        e.target.parentElement.remove();
+
+        updateOutput();
+        await savePreferences();
+    }
+
+});
+
+document.addEventListener("change", async e => {
+
+    /* CHECKBOX CHANGE */
+    if (e.target.matches('.checkbox-group input[type="checkbox"]')) {
+        updateOutput();
+        await savePreferences();
+    }
+
+});
+
+
+/* ==========================
+   COLLAPSE GROUP
+========================== */
+
+document.querySelectorAll(".section-header")
+    .forEach(header => {
+
+        header.addEventListener("click", () => {
+            header.parentElement.classList.toggle("collapsed");
+        });
+
+    });
+
+
+/* ==========================
    COPY / CLEAR
--------------------------- */
+========================== */
 
 document.querySelector(".copy")
     .addEventListener("click", () => {
@@ -141,18 +180,25 @@ document.querySelector(".clear")
         output.value = "";
     });
 
-document.getElementById("logoutBtn")
-    .addEventListener("click", logout);
 
-/* --------------------------
+/* ==========================
+   LOGOUT
+========================== */
+
+logoutBtn.addEventListener("click", logout);
+
+
+/* ==========================
    INIT
--------------------------- */
+========================== */
 
 auth.onAuthStateChanged(async user => {
+
     if (!user) {
         window.location.href = "../index.html";
         return;
     }
 
     await loadPreferences();
+
 });
