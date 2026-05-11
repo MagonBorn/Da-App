@@ -1,25 +1,43 @@
 // app.js
 import { auth, db } from './firebase.js';
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+import { onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
 import {
   doc,
   getDoc
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+}
+  from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-console.log("app.js is loaded");
+console.log("app.js loaded");
 
-const userEmailEl = document.getElementById("user-email");
+const userEmailEl =
+  document.getElementById("user-email");
 
-// Protect page
+
 onAuthStateChanged(auth, async (user) => {
+
   if (!user) {
-    window.location.href = "index.html";
-  } else {
+    window.location.href = "/Da-App/index.html";
+    return;
+  }
+
+  try {
+
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      userEmailEl.innerText = docSnap.data().email;
+    if (
+      docSnap.exists() &&
+      userEmailEl
+    ) {
+      userEmailEl.innerText =
+        docSnap.data().email || user.email;
     }
+
+  } catch (err) {
+    console.error("App init error:", err);
   }
+
 });
