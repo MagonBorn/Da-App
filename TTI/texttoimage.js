@@ -30,17 +30,18 @@ async function savePreferences() {
 
     const comments = [];
 
-    checkboxGroup.querySelectorAll("label").forEach(label => {
-        const cb = label.querySelector("input");
+    checkboxGroup.querySelectorAll("label")
+        .forEach(label => {
+            const cb = label.querySelector("input");
 
-        comments.push({
-            text: cb.value,
-            checked: cb.checked
+            comments.push({
+                text: cb.value,
+                checked: cb.checked
+            });
         });
-    });
 
     await setDoc(
-        doc(db, "users", user.uid, "workflows", COLLECTION),
+        workflowRef(user),
         { comments }
     );
 }
@@ -55,7 +56,7 @@ async function loadPreferences() {
     if (!user) return;
 
     const snap = await getDoc(
-        doc(db, "users", user.uid, "workflows", COLLECTION)
+        workflowRef(user)
     );
 
     if (!snap.exists()) return;
