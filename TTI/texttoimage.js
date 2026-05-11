@@ -1,5 +1,4 @@
-import { logout } from "../auth.js";
-import { auth, db } from "../firebase.js";
+import { auth, db, logout } from "../auth.js";
 
 import {
     doc,
@@ -207,12 +206,3 @@ auth.onAuthStateChanged(async user => {
 });
 
 // Debugging - Delete after testing:
-function workflowRef(user) {
-    return doc(
-        db,
-        "users",
-        user.uid,
-        "workflows",
-        COLLECTION
-    );
-}

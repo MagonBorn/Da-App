@@ -66,3 +66,18 @@ export function logout() {
     console.error("Logout failed:", error);
   });
 }
+
+// Exports
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+// Debugging - Delete after testing:
+function workflowRef(user) {
+    return doc(
+        db,
+        "users",
+        user.uid,
+        "workflows",
+        COLLECTION
+    );
+}
