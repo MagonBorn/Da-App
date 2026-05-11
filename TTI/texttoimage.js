@@ -7,8 +7,17 @@ import {
     setDoc
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-
 const COLLECTION = "textToImage";
+
+const output = document.getElementById("output");
+const customInput = document.getElementById("customTTI");
+const checkboxGroup = document.querySelector(".checkbox-group");
+const logoutBtn = document.getElementById("logoutBtn");
+
+
+/* ==========================
+   FIRESTORE REF
+========================== */
 
 function workflowRef(user) {
     return doc(
@@ -20,14 +29,9 @@ function workflowRef(user) {
     );
 }
 
-const output = document.getElementById("output");
-const customInput = document.getElementById("customTTI");
-const checkboxGroup = document.querySelector(".checkbox-group");
-const logoutBtn = document.getElementById("logoutBtn");
-
 
 /* ==========================
-   SAVE TO FIRESTORE
+   SAVE (TEXT ONLY)
 ========================== */
 
 async function savePreferences() {
@@ -36,15 +40,10 @@ async function savePreferences() {
 
     const comments = [];
 
-    checkboxGroup.querySelectorAll("label")
-        .forEach(label => {
-            const cb = label.querySelector("input");
-
-            comments.push({
-                text: cb.value,
-                checked: cb.checked
-            });
-        });
+    checkboxGroup.querySelectorAll("label").forEach(label => {
+        const cb = label.querySelector("input");
+        comments.push(cb.value);
+    });
 
     await setDoc(
         workflowRef(user),
@@ -54,23 +53,21 @@ async function savePreferences() {
 
 
 /* ==========================
-   LOAD FROM FIRESTORE
+   LOAD
 ========================== */
 
 async function loadPreferences() {
     const user = auth.currentUser;
     if (!user) return;
 
-    const snap = await getDoc(
-        workflowRef(user)
-    );
+    const snap = await getDoc(workflowRef(user));
 
     if (!snap.exists()) return;
 
     checkboxGroup.innerHTML = "";
 
-    snap.data().comments.forEach(item => {
-        addCheckbox(item.text, item.checked);
+    snap.data().comments.forEach(comment => {
+        addCheckbox(comment);
     });
 
     updateOutput();
@@ -78,7 +75,7 @@ async function loadPreferences() {
 
 
 /* ==========================
-   UPDATE OUTPUT TEXTAREA
+   OUTPUT
 ========================== */
 
 function updateOutput() {
@@ -96,13 +93,11 @@ function updateOutput() {
    ADD CHECKBOX
 ========================== */
 
-function addCheckbox(text, checked = false) {
+function addCheckbox(text) {
     const label = document.createElement("label");
 
     label.innerHTML = `
-        <input type="checkbox"
-               value="${text}"
-               ${checked ? "checked" : ""}>
+        <input type="checkbox" value="${text}">
         ${text}
         <span class="remove">✕</span>
     `;
@@ -112,7 +107,7 @@ function addCheckbox(text, checked = false) {
 
 
 /* ==========================
-   ADD CUSTOM COMMENT
+   ADD CUSTOM
 ========================== */
 
 async function handleAdd() {
@@ -120,7 +115,7 @@ async function handleAdd() {
 
     if (!value) return;
 
-    addCheckbox(value, false);
+    addCheckbox(value);
 
     customInput.value = "";
 
@@ -139,12 +134,22 @@ customInput.addEventListener("keydown", e => {
 
 
 /* ==========================
-   CHECK / REMOVE EVENTS
+   CHECKBOX CHANGES
+========================== */
+
+document.addEventListener("change", e => {
+    if (e.target.matches(".checkbox-group input")) {
+        updateOutput();
+    }
+});
+
+
+/* ==========================
+   REMOVE COMMENTS
 ========================== */
 
 document.addEventListener("click", async e => {
 
-    /* REMOVE COMMENT */
     if (e.target.classList.contains("remove")) {
         e.target.parentElement.remove();
 
@@ -154,19 +159,35 @@ document.addEventListener("click", async e => {
 
 });
 
-document.addEventListener("change", async e => {
 
-    /* CHECKBOX CHANGE */
-    if (e.target.matches('.checkbox-group input[type="checkbox"]')) {
-        updateOutput();
-        await savePreferences();
-    }
+/* ==========================
+   CLEAR
+========================== */
 
-});
+document.querySelector(".clear")
+    .addEventListener("click", () => {
+
+        checkboxGroup
+            .querySelectorAll("input")
+            .forEach(cb => cb.checked = false);
+
+        output.value = "";
+
+    });
 
 
 /* ==========================
-   COLLAPSE GROUP
+   COPY
+========================== */
+
+document.querySelector(".copy")
+    .addEventListener("click", () => {
+        navigator.clipboard.writeText(output.value);
+    });
+
+
+/* ==========================
+   COLLAPSE
 ========================== */
 
 document.querySelectorAll(".section-header")
@@ -176,21 +197,6 @@ document.querySelectorAll(".section-header")
             header.parentElement.classList.toggle("collapsed");
         });
 
-    });
-
-
-/* ==========================
-   COPY / CLEAR
-========================== */
-
-document.querySelector(".copy")
-    .addEventListener("click", () => {
-        navigator.clipboard.writeText(output.value);
-    });
-
-document.querySelector(".clear")
-    .addEventListener("click", () => {
-        output.value = "";
     });
 
 
@@ -215,5 +221,3 @@ auth.onAuthStateChanged(async user => {
     await loadPreferences();
 
 });
-
-// Debugging - Delete after testing:

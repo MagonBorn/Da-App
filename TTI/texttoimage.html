@@ -29,26 +29,42 @@
         <div class="left">
             <h2>Text To Image Workflow</h2>
 
-            <div class="section" id="ttiComments">
+            <div class="section">
+
                 <div class="section-header">
                     <h3>Feedback</h3>
+                    <span class="toggle">+</span>
                 </div>
 
                 <div class="section-body">
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" value="Prompt quality could improve">Prompt quality could
-                            improve</label>
-                        <label><input type="checkbox" value="Image lacks detail">Image lacks detail</label>
-                        <label><input type="checkbox" value="Composition needs refinement">Composition needs
-                            refinement</label>
-                    </div>
 
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" value="Prompt quality could improve">
+                            Prompt quality could improve
+                            <span class="remove">✕</span>
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="Image lacks detail">
+                            Image lacks detail
+                            <span class="remove">✕</span>
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="Composition needs refinement">
+                            Composition needs refinement
+                            <span class="remove">✕</span>
+                        </label>
+                    </div>
 
                     <div class="custom-row">
-                        <input id="customTTI" placeholder="Add custom comment...">
+                        <input id="customTTI">
                         <button class="add-btn">Add</button>
                     </div>
+
                 </div>
+
             </div>
         </div>
 
