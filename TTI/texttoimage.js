@@ -67,7 +67,13 @@ async function loadPreferences() {
     checkboxGroup.innerHTML = "";
 
     snap.data().comments.forEach(comment => {
-        addCheckbox(comment);
+
+        if (typeof comment === "string") {
+            addCheckbox(comment);
+        } else if (comment.text) {
+            addCheckbox(comment.text);
+        }
+
     });
 
     updateOutput();
@@ -193,8 +199,18 @@ document.querySelector(".copy")
 document.querySelectorAll(".section-header")
     .forEach(header => {
 
+        const toggle = header.querySelector(".toggle");
+
         header.addEventListener("click", () => {
-            header.parentElement.classList.toggle("collapsed");
+
+            const section = header.parentElement;
+
+            section.classList.toggle("collapsed");
+
+            toggle.textContent =
+                section.classList.contains("collapsed")
+                    ? "+"
+                    : "−";
         });
 
     });
