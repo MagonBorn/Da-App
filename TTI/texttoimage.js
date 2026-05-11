@@ -10,6 +10,16 @@ import {
 
 const COLLECTION = "textToImage";
 
+function workflowRef(user) {
+    return doc(
+        db,
+        "users",
+        user.uid,
+        "workflows",
+        COLLECTION
+    );
+}
+
 const output = document.getElementById("output");
 const customInput = document.getElementById("customTTI");
 const checkboxGroup = document.querySelector(".checkbox-group");
