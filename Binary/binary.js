@@ -9,8 +9,19 @@ import {
 
 const output = document.getElementById("output");
 
-
 // DEFAULTS
+const COLLECTION = "binary";
+
+function workflowRef(user) {
+    return doc(
+        db,
+        "users",
+        user.uid,
+        "workflows",
+        COLLECTION
+    );
+}
+
 const DEFAULTS = {
     A: [
         "Better range in pitch variation",
@@ -120,7 +131,7 @@ async function loadPreferences() {
     const user = auth.currentUser;
     if (!user) return;
 
-    const ref = doc(db, "users", user.uid);
+    const ref = doc(db, "users", user.uid, "workflows", "binary");
     const snap = await getDoc(ref);
 
     let data;
@@ -172,7 +183,7 @@ async function savePreferences() {
         grouped[cb.dataset.group].push(cb.value);
     });
 
-    await setDoc(doc(db, "users", user.uid), {
+    await setDoc(workflowRef(user), {
         responseA: grouped.A,
         responseB: grouped.B,
         responseC: grouped.C
