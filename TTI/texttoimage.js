@@ -1,10 +1,11 @@
-import { auth, db, logout } from "../auth.js";
+import { auth, db } from "../firebase.js";
+import { logout } from "../auth.js";
 
 import {
     doc,
     getDoc,
     setDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 
 const COLLECTION = "textToImage";
