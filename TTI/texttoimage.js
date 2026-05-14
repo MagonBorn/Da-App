@@ -238,3 +238,59 @@ auth.onAuthStateChanged(async user => {
     await loadPreferences();
 
 });
+
+// DISABLE PASTING IN TEXT AREAS
+function disablePaste(el) {
+    el.addEventListener("paste", (e) => {
+        e.preventDefault();
+    });
+}
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    document.getElementById("notepad").value = "";
+});
+
+document.addEventListener("paste", (e) => {
+    if (e.target.tagName === "TEXTAREA") {
+        e.preventDefault();
+    }
+});
+
+// BLOCK PASTE IN LEFT PANEL INPUTS
+document.addEventListener("paste", (e) => {
+    const target = e.target;
+
+    // Only block if it's inside the LEFT panel and is a text input
+    if (
+        target.closest(".left") &&
+        (target.tagName === "INPUT" || target.tagName === "TEXTAREA")
+    ) {
+        e.preventDefault();
+    }
+});
+
+// PREVENT TEXT DRAG AND DROP
+document.addEventListener("drop", (e) => {
+    const target = e.target;
+
+    if (
+        (target.closest(".left") && target.tagName === "INPUT") ||
+        (target.closest(".right") && target.tagName === "TEXTAREA")
+    ) {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener("dragover", (e) => {
+    const target = e.target;
+
+    if (
+        (target.closest(".left") && target.tagName === "INPUT") ||
+        (target.closest(".right") && target.tagName === "TEXTAREA")
+    ) {
+        e.preventDefault();
+    }
+});
+
+disablePaste(output);
+disablePaste(notepad);
