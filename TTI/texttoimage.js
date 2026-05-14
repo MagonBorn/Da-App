@@ -128,159 +128,95 @@ async function handleAdd() {
     await savePreferences();
 }
 
-document.querySelector(".add-btn")
-    .addEventListener("click", handleAdd);
-
-customInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        handleAdd();
-    }
-});
-
-
 /* ==========================
-   CHECKBOX CHANGES
+   EVENTS
 ========================== */
 
-document.addEventListener("change", e => {
-    if (e.target.matches(".checkbox-group input")) {
-        updateOutput();
-    }
-});
+function bindEvents() {
 
+    const addBtn = document.querySelector(".add-btn");
+    const clearBtn = document.querySelector(".clear");
+    const copyBtn = document.querySelector(".copy");
 
-/* ==========================
-   REMOVE COMMENTS
-========================== */
-
-document.addEventListener("click", async e => {
-
-    if (e.target.classList.contains("remove")) {
-        e.target.parentElement.remove();
-
-        updateOutput();
-        await savePreferences();
+    if (addBtn) {
+        addBtn.addEventListener("click", handleAdd);
     }
 
-});
-
-
-/* ==========================
-   CLEAR
-========================== */
-
-document.querySelector(".clear")
-    .addEventListener("click", () => {
-
-        checkboxGroup
-            .querySelectorAll("input")
-            .forEach(cb => cb.checked = false);
-
-        output.value = "";
-
-    });
-
-
-/* ==========================
-   COPY
-========================== */
-
-document.querySelector(".copy")
-    .addEventListener("click", () => {
-        navigator.clipboard.writeText(output.value);
-    });
-
-
-/* ==========================
-   COLLAPSE
-========================== */
-
-document.querySelectorAll(".section-header")
-    .forEach(header => {
-
-        header.addEventListener("click", () => {
-
-            const section = header.closest(".section");
-            const toggle = header.querySelector(".toggle");
-
-            section.classList.toggle("collapsed");
-
-            if (toggle) {
-                toggle.textContent =
-                    section.classList.contains("collapsed")
-                        ? "+"
-                        : "−";
-            }
-
-        });
-
-    });
-
-
-/* ==========================
-   LOGOUT
-========================== */
-
-logoutBtn.addEventListener("click", logout);
-
-/* ==========================
-   PRIVACY LOCKDOWN
-========================== */
-
-function lockInputSecurity() {
-
-    // Block paste everywhere
-    document.addEventListener("paste", e => {
-        e.preventDefault();
-    });
-
-    // Block drag/drop globally
-    document.addEventListener("dragover", e => {
-        e.preventDefault();
-    });
-
-    document.addEventListener("drop", e => {
-        e.preventDefault();
-    });
-
-    // Block context menu (optional)
-    document.addEventListener("contextmenu", e => {
-        e.preventDefault();
-    });
-
-    // Explicit textarea protection
-    document.querySelectorAll("textarea").forEach(area => {
-
-        area.addEventListener("paste", e => {
-            e.preventDefault();
-        });
-
-        area.addEventListener("drop", e => {
-            e.preventDefault();
-        });
-
-        area.addEventListener("dragover", e => {
-            e.preventDefault();
-        });
-
-    });
-
-    // Block left custom input paste/drop
     if (customInput) {
+        customInput.addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                handleAdd();
+            }
+        });
+    }
 
-        customInput.addEventListener("paste", e => {
-            e.preventDefault();
+    document.addEventListener("change", e => {
+        if (e.target.matches(".checkbox-group input")) {
+            updateOutput();
+        }
+    });
+
+    document.addEventListener("click", async e => {
+
+        if (e.target.classList.contains("remove")) {
+            e.target.parentElement.remove();
+
+            updateOutput();
+            await savePreferences();
+        }
+
+    });
+
+    if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+
+            checkboxGroup
+                ?.querySelectorAll("input")
+                .forEach(cb => cb.checked = false);
+
+            output.value = "";
+
+        });
+    }
+
+    if (copyBtn) {
+        copyBtn.addEventListener("click", async () => {
+
+            await navigator.clipboard.writeText(output.value);
+
+            output.select();
+
+            setTimeout(() => {
+                output.setSelectionRange(0, 0);
+            }, 400);
+
+        });
+    }
+
+    document.querySelectorAll(".section-header")
+        .forEach(header => {
+
+            header.addEventListener("click", () => {
+
+                const section = header.closest(".section");
+                const toggle = header.querySelector(".toggle");
+
+                section.classList.toggle("collapsed");
+
+                if (toggle) {
+                    toggle.textContent =
+                        section.classList.contains("collapsed")
+                            ? "+"
+                            : "−";
+                }
+
+            });
+
         });
 
-        customInput.addEventListener("drop", e => {
-            e.preventDefault();
-        });
-
-        customInput.addEventListener("dragover", e => {
-            e.preventDefault();
-        });
-
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", logout);
     }
 
 }
@@ -296,6 +232,7 @@ auth.onAuthStateChanged(async user => {
         return;
     }
 
+    bindEvents();
     lockInputSecurity();
 
     await loadPreferences();
